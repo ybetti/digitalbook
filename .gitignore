@@ -15,3 +15,7 @@ __pycache__/
 
 # 元PDF（リポジトリには含めない）
 *.pdf
+
+# 単一ファイル版のビルド成果物（tools/build_single.py で生成）
+/*.html
+!index.html

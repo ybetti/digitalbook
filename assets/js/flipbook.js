@@ -39,8 +39,10 @@
 
   function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
   function pad3(n) { return n < 10 ? '00' + n : (n < 100 ? '0' + n : '' + n); }
-  function pageSrc(n) { return 'pages/full/p' + pad3(n) + '.webp'; }
-  function thumbSrc(n) { return 'pages/thumb/p' + pad3(n) + '.webp'; }
+  // 単一ファイル版では画像が data URI として埋め込まれる（tools/build_single.py）
+  var IMG = window.BOOK_IMG || null;
+  function pageSrc(n) { return (IMG && IMG.full[n]) || ('pages/full/p' + pad3(n) + '.webp'); }
+  function thumbSrc(n) { return (IMG && IMG.thumb[n]) || ('pages/thumb/p' + pad3(n) + '.webp'); }
 
   var leafCount = function () { return Math.ceil(N / 2); };
   var maxFlipped = function () { return N % 2 ? leafCount() - 1 : leafCount(); };

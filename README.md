@@ -37,6 +37,7 @@ pages/full/pNNN.webp    ページ画像（横 1600px / WebP）
 pages/thumb/pNNN.webp   サムネイル（横 260px / WebP）
 pages/book.js           ページ数・寸法・本文テキスト・リンク座標
 tools/pdf2book.py       PDF → 上記ページデータへの変換スクリプト
+tools/build_single.py   すべてを埋め込んだ 1 ファイル版 HTML を書き出すスクリプト
 ```
 
 ページデータは `fetch` ではなく素の JS ファイルとして読み込むため、
@@ -64,10 +65,32 @@ python tools/pdf2book.py "別の号.pdf"
 同梱してツールバーからダウンロードできるようにする場合は、PDF をリポジトリのルートに置き、
 `--no-pdf` を付けずに変換スクリプトを実行してください。
 
+## 1 ファイルにまとめて配る
+
+CSS・JS・ページ画像をすべて埋め込んだ HTML を 1 つ書き出せます。
+その 1 ファイルだけをメールに添付したり共有フォルダに置いたりすれば、
+サーバーなしでダブルクリックして読めます。
+
+```bash
+python tools/build_single.py --out "社内報.html"
+```
+
+サイズはページ画像に比例します（base64 化で約 1.37 倍。1600px / 71 ページで約 19MB）。
+メール添付の上限に収めたいときは、先に解像度を落として作り直してください。
+
+```bash
+python tools/pdf2book.py "元.pdf" --no-pdf --width 1200 --quality 74
+python tools/build_single.py --out "社内報.html"
+```
+
+書き出した HTML はリポジトリに含めていません（`.gitignore` で除外）。
+
 ## 公開する
 
 静的ファイルのみなので、そのまま任意のホスティングに置けます。
-GitHub Pages なら Settings → Pages で `main` ブランチのルートを指定するだけで公開できます。
+GitHub Pages を使う場合は Settings → Pages で `main` ブランチのルートを指定します。
+社外に出したくない内容であれば、Pages ではなく社内サーバーや
+アクセス制限付きのホスティング、あるいは上記の 1 ファイル版の配布が向いています。
 
 ## めくりの仕組み
 
