@@ -1,0 +1,17 @@
+# OS / エディタ
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# 作業ファイル
+_*.html
+_*.png
+_*.txt
+__pycache__/
+*.pyc
+
+# 元PDF（リポジトリには含めない）
+*.pdf

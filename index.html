@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark" data-mode="spread">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mysealake 2026年夏号｜デジタルブック</title>
+<meta name="description" content="Mysealake 2026年夏号のデジタルブック版。クリックやドラッグで本物のようにページをめくって読めます。">
+<meta name="theme-color" content="#12151c">
+<link rel="icon" type="image/webp" href="pages/thumb/p001.webp">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10.5 5.2 8.5 4.5 6 4.5c-1 0-2 .1-2.8.3-.4.1-.7.5-.7.9v12.1c0 .6.6 1.1 1.2.9.7-.2 1.5-.3 2.3-.3 2.2 0 4 .6 6 1.9 2-1.3 3.8-1.9 6-1.9.8 0 1.6.1 2.3.3.6.2 1.2-.3 1.2-.9V5.7c0-.4-.3-.8-.7-.9-.8-.2-1.8-.3-2.8-.3-2.5 0-4.5.7-6 2zm0 0v13"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h6v7H4zM14 4h6v7h-6zM4 15h6v5H4zM14 15h6v5h-6z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-zin" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8.2v5.6M8.2 11h5.6"/></symbol>
+  <symbol id="i-zout" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M8.2 11h5.6"/></symbol>
+  <symbol id="i-spread" viewBox="0 0 24 24"><path d="M3.5 5h7v14h-7zM13.5 5h7v14h-7z"/></symbol>
+  <symbol id="i-single" viewBox="0 0 24 24"><path d="M7 4h10v16H7z"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4zM15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4zM16 10l4.5 4.5M20.5 10L16 14.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-exit" viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3.5v11M7.5 10.5L12 15l4.5-4.5M4.5 19.5h15"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 114 2.4c-.9.6-1.6 1-1.6 2.1"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-first" viewBox="0 0 24 24"><path d="M17 5l-7 7 7 7M7 5v14"/></symbol>
+  <symbol id="i-last" viewBox="0 0 24 24"><path d="M7 5l7 7-7 7M17 5v14"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+
+<div class="loader" id="loader">
+  <div class="loader-box">
+    <div class="loader-book"><i></i><i></i><i></i></div>
+    <p class="loader-title" id="loaderTitle">デジタルブック</p>
+    <div class="loader-bar"><span id="loaderBar"></span></div>
+    <p class="loader-note" id="loaderNote">ページを準備しています…</p>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="ico brand-ico"><use href="#i-book"/></svg>
+    <div class="brand-txt">
+      <strong id="bookTitle">デジタルブック</strong>
+      <small id="bookSub">&nbsp;</small>
+    </div>
+  </div>
+  <div class="tools">
+    <button class="tbtn" id="btnThumbs" title="ページ一覧 (T)" aria-label="ページ一覧"><svg class="ico"><use href="#i-grid"/></svg></button>
+    <button class="tbtn" id="btnSearch" title="本文を検索 (F)" aria-label="本文を検索"><svg class="ico"><use href="#i-search"/></svg></button>
+    <span class="sep"></span>
+    <button class="tbtn" id="btnZoomOut" title="縮小 (-)" aria-label="縮小"><svg class="ico"><use href="#i-zout"/></svg></button>
+    <button class="tbtn tbtn-txt" id="btnZoomReset" title="等倍に戻す (0)">100%</button>
+    <button class="tbtn" id="btnZoomIn" title="拡大 (+)" aria-label="拡大"><svg class="ico"><use href="#i-zin"/></svg></button>
+    <span class="sep"></span>
+    <button class="tbtn" id="btnSpread" title="見開き／単ページ (D)" aria-label="表示切替"><svg class="ico"><use href="#i-spread"/></svg></button>
+    <button class="tbtn" id="btnSound" title="めくり音 (S)" aria-label="めくり音"><svg class="ico"><use href="#i-mute"/></svg></button>
+    <button class="tbtn" id="btnTheme" title="テーマ切替" aria-label="テーマ切替"><svg class="ico"><use href="#i-sun"/></svg></button>
+    <button class="tbtn" id="btnFull" title="全画面 (E)" aria-label="全画面"><svg class="ico"><use href="#i-full"/></svg></button>
+    <a class="tbtn" id="btnPdf" href="#" download title="PDFをダウンロード" aria-label="PDFをダウンロード"><svg class="ico"><use href="#i-dl"/></svg></a>
+    <button class="tbtn" id="btnHelp" title="使い方 (?)" aria-label="使い方"><svg class="ico"><use href="#i-help"/></svg></button>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+  <button class="edge edge-l" id="edgePrev" aria-label="前のページ"><svg class="ico"><use href="#i-left"/></svg></button>
+  <button class="edge edge-r" id="edgeNext" aria-label="次のページ"><svg class="ico"><use href="#i-right"/></svg></button>
+
+  <div class="viewport" id="viewport">
+    <div class="pan" id="pan">
+      <div class="book" id="book">
+        <div class="slot slot-l" id="slotL"></div>
+        <div class="slot slot-r" id="slotR"></div>
+        <div class="gutter" id="gutter"></div>
+        <div class="leaf-shadow" id="leafShadow"></div>
+        <div class="flipper" id="flipper" hidden>
+          <div class="face front" id="faceF"><div class="shade"></div></div>
+          <div class="face back" id="faceB"><div class="shade"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint" id="hint"><b>ドラッグ</b>または<b>クリック</b>でページをめくれます</div>
+  <div class="toast" id="toast"></div>
+</main>
+
+<footer class="bottombar">
+  <button class="pbtn" id="btnFirst" title="最初のページ (Home)" aria-label="最初のページ"><svg class="ico"><use href="#i-first"/></svg></button>
+  <button class="pbtn" id="btnPrev" title="前へ (←)" aria-label="前のページ"><svg class="ico"><use href="#i-left"/></svg></button>
+  <div class="slider-wrap" id="sliderWrap">
+    <input type="range" id="slider" min="1" max="1" value="1" step="1" aria-label="ページ移動">
+    <div class="slider-preview" id="sliderPreview" hidden><img id="spImg" alt=""><span id="spNum"></span></div>
+  </div>
+  <button class="pbtn" id="btnNext" title="次へ (→)" aria-label="次のページ"><svg class="ico"><use href="#i-right"/></svg></button>
+  <button class="pbtn" id="btnLast" title="最後のページ (End)" aria-label="最後のページ"><svg class="ico"><use href="#i-last"/></svg></button>
+  <div class="pagelabel" id="pageLabel">–</div>
+</footer>
+
+<aside class="drawer" id="drawerThumbs" hidden>
+  <div class="drawer-head">
+    <h2>ページ一覧</h2>
+    <button class="tbtn" data-close aria-label="閉じる"><svg class="ico"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="thumbs" id="thumbs"></div>
+</aside>
+
+<aside class="drawer" id="drawerSearch" hidden>
+  <div class="drawer-head">
+    <h2>本文を検索</h2>
+    <button class="tbtn" data-close aria-label="閉じる"><svg class="ico"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="search-box">
+    <svg class="ico"><use href="#i-search"/></svg>
+    <input type="search" id="searchInput" placeholder="キーワードを入力" autocomplete="off">
+  </div>
+  <p class="search-count" id="searchCount"></p>
+  <div class="results" id="results"></div>
+</aside>
+
+<div class="modal" id="modalHelp" hidden>
+  <div class="modal-card">
+    <div class="drawer-head">
+      <h2>使い方</h2>
+      <button class="tbtn" data-close aria-label="閉じる"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <ul class="help-list">
+      <li><span>ページをめくる</span><em>ページの左右をクリック、または端からドラッグ</em></li>
+      <li><span>前後へ移動</span><kbd>←</kbd><kbd>→</kbd><em>マウスホイールでも移動できます</em></li>
+      <li><span>最初／最後へ</span><kbd>Home</kbd><kbd>End</kbd></li>
+      <li><span>ページ一覧</span><kbd>T</kbd></li>
+      <li><span>本文検索</span><kbd>F</kbd></li>
+      <li><span>拡大／縮小</span><kbd>+</kbd><kbd>-</kbd><kbd>0</kbd><em>Ctrl+ホイール、拡大中はドラッグで移動</em></li>
+      <li><span>見開き／単ページ</span><kbd>D</kbd></li>
+      <li><span>全画面</span><kbd>E</kbd></li>
+      <li><span>めくり音</span><kbd>S</kbd></li>
+    </ul>
+    <p class="help-foot">スマートフォンではスワイプでめくれます。ピンチ操作でも拡大できます。</p>
+  </div>
+</div>
+
+<script src="pages/book.js"></script>
+<script src="assets/js/flipbook.js"></script>
+</body>
+</html>
