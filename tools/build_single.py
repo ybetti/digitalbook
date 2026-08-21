@@ -10,9 +10,9 @@ CSS・JS・ページ画像・サムネイルをすべて埋め込むため、
     python tools/build_single.py --out 社内報.html
 
 サイズは元のページ画像に比例する（base64 化で約 1.37 倍）。
-軽くしたい場合は先に解像度を落として作り直す:
-    python tools/pdf2book.py "元.pdf" --no-pdf --width 1200 --quality 74
-    python tools/build_single.py
+軽くしたい場合は別ディレクトリに低解像度で書き出してからビルドする:
+    python tools/pdf2book.py "元.pdf" --no-pdf --out pages-light --width 1400 --quality 74
+    python tools/build_single.py --pages pages-light --out "軽量版.html"
 """
 
 import argparse

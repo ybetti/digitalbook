@@ -16,7 +16,7 @@ PDF を、実際の冊子のようにページをめくって読める HTML デ�
 | 本文検索 | `F`（PDF から抽出した本文を全ページ横断で検索） |
 | 拡大／縮小 | `+` `-` `0`、`Ctrl` + ホイール、スマホはピンチ。拡大中はドラッグで移動 |
 | 見開き／単ページ | `D`（狭い画面では自動で単ページ） |
-| 全画面 | `E` |
+| 全画面 | `E`（メニューが自動で隠れ、ページが最大表示になります。マウスを動かすと再表示） |
 | めくり音 | `S`（Web Audio で合成。音声ファイルは不要） |
 | 使い方 | `?` |
 
@@ -33,8 +33,8 @@ PDF を、実際の冊子のようにページをめくって読める HTML デ�
 index.html              ビューア本体
 assets/css/style.css    スタイル（テーマ・レイアウト・3D めくりの陰影）
 assets/js/flipbook.js   めくりエンジン（依存ライブラリなし）
-pages/full/pNNN.webp    ページ画像（横 1600px / WebP）
-pages/thumb/pNNN.webp   サムネイル（横 260px / WebP）
+pages/full/pNNN.webp    ページ画像（横 2400px / WebP）
+pages/thumb/pNNN.webp   サムネイル（横 300px / WebP）
 pages/book.js           ページ数・寸法・本文テキスト・リンク座標
 tools/pdf2book.py       PDF → 上記ページデータへの変換スクリプト
 tools/build_single.py   すべてを埋め込んだ 1 ファイル版 HTML を書き出すスクリプト
@@ -53,7 +53,7 @@ python tools/pdf2book.py "別の号.pdf"
 `pages/` 以下が丸ごと差し替わり、タイトルやページ数もビューアに自動で反映されます。
 主なオプション:
 
-- `--width 2000` ページ画像の解像度（既定 1600px、拡大時の精細さと容量のバランス）
+- `--width 2400` ページ画像の解像度（既定 1600px。このリポジトリは全画面・拡大時の精細さを優先して 2400px）
 - `--quality 85` WebP 品質（既定 80）
 - `--title "社内報 春号"` 表示タイトル（既定は PDF のファイル名）
 - `--no-text` 本文テキストを埋め込まない（検索を無効化）
@@ -75,12 +75,13 @@ CSS・JS・ページ画像をすべて埋め込んだ HTML を 1 つ書き出せ
 python tools/build_single.py --out "社内報.html"
 ```
 
-サイズはページ画像に比例します（base64 化で約 1.37 倍。1600px / 71 ページで約 19MB）。
-メール添付の上限に収めたいときは、先に解像度を落として作り直してください。
+サイズはページ画像に比例します（base64 化で約 1.37 倍。2400px / 71 ページで約 30MB）。
+メール添付の上限に収めたいときは、別ディレクトリに低解像度で書き出してからビルドします
+（`pages/` はそのまま残るので、通常版の画質は落ちません）。
 
 ```bash
-python tools/pdf2book.py "元.pdf" --no-pdf --width 1200 --quality 74
-python tools/build_single.py --out "社内報.html"
+python tools/pdf2book.py "元.pdf" --no-pdf --out pages-light --width 1400 --quality 74
+python tools/build_single.py --pages pages-light --out "社内報_軽量版.html"
 ```
 
 書き出した HTML はリポジトリに含めていません（`.gitignore` で除外）。

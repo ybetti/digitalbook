@@ -121,8 +121,9 @@
 
   function layout() {
     var w = stage.clientWidth, h = stage.clientHeight;
-    var padX = w < 700 ? 10 : 60;
-    var padY = w < 700 ? 12 : 26;
+    var fs = !!document.fullscreenElement;
+    var padX = fs ? 20 : (w < 700 ? 10 : 40);
+    var padY = fs ? 10 : (w < 700 ? 12 : 18);
     var availW = Math.max(120, w - padX * 2);
     var availH = Math.max(120, h - padY * 2);
     var cols = S.mode === 'spread' ? 2 : 1;
@@ -737,11 +738,52 @@
     else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
   });
 
+  /* ---------- fullscreen: auto-hiding chrome ---------- */
+
+  var chromeTimer = null;
+
+  function overlayOpen() {
+    return $('drawerThumbs').classList.contains('open') ||
+           $('drawerSearch').classList.contains('open') ||
+           $('modalHelp').classList.contains('open');
+  }
+
+  function showChrome(sticky) {
+    root.classList.add('chrome');
+    clearTimeout(chromeTimer);
+    if (!sticky) { chromeTimer = setTimeout(hideChrome, 2600); }
+  }
+
+  function hideChrome() {
+    if (!document.fullscreenElement || overlayOpen()) { return; }
+    root.classList.remove('chrome');
+  }
+
+  document.addEventListener('pointermove', function () {
+    if (!document.fullscreenElement) { return; }
+    if ((S.drag && S.drag.moved) || S.panDrag) { return; }   // turning a page shouldn't summon the bars
+    showChrome(overlayOpen());
+  });
+
+  ['topbar', 'bottombar'].forEach(function (cls) {
+    var bar = document.querySelector('.' + cls);
+    bar.addEventListener('pointerenter', function () { showChrome(true); });
+    bar.addEventListener('pointerleave', function () { showChrome(false); });
+  });
+
   document.addEventListener('fullscreenchange', function () {
     var on = !!document.fullscreenElement;
+    root.classList.toggle('fs', on);
     $('btnFull').classList.toggle('on', on);
     $('btnFull').firstElementChild.firstElementChild.setAttribute('href', on ? '#i-exit' : '#i-full');
-    setTimeout(layout, 120);
+    if (on) {
+      showChrome(false);
+      toast('マウスを動かすとメニューが表示されます');
+    } else {
+      root.classList.remove('chrome');
+      clearTimeout(chromeTimer);
+    }
+    setTimeout(layout, 140);
   });
 
   $('btnHelp').addEventListener('click', function () {

@@ -191,10 +191,11 @@ body {
   transform: translate3d(0, 0, 0) scale(1);
   transform-origin: center center;
   transition: transform .28s var(--ease);
-  will-change: transform;
 }
 
-.pan.dragging { transition: none; }
+/* will-change only while moving: a permanently promoted layer gets
+   rasterised once and looks soft when scaled up. */
+.pan.dragging { transition: none; will-change: transform; }
 
 .book {
   position: relative;
@@ -871,6 +872,41 @@ kbd {
   font-size: 11.5px;
   color: var(--muted);
 }
+
+/* ---------- fullscreen: hand the whole viewport to the book ----------
+   The bars come out of the flow and slide away, so the stage gets the full
+   height. Any pointer movement brings them back for a few seconds.        */
+
+html.fs .topbar,
+html.fs .bottombar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: transform .32s var(--ease), opacity .32s var(--ease);
+}
+
+html.fs .topbar {
+  top: 0;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+html.fs .bottombar {
+  bottom: 0;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+html.fs.chrome .topbar,
+html.fs.chrome .bottombar {
+  transform: none;
+  opacity: 1;
+}
+
+/* the reader has the screen to themselves — keep the frame quiet */
+html.fs .stage { background: transparent; }
+html.fs .hint { bottom: 26px; }
 
 /* ---------- responsive ---------- */
 
